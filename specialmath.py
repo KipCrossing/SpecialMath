@@ -37,8 +37,6 @@ class SpecialMath(object):
         for d in range(0,len(data_list)):
             data_list[d] -= data_mean
         Amp_high = self.mean([data_mean - min(data_list),max(data_list) - data_mean])
-        print(data_list)
-        print(Amp_high)
         Amp_low = 0
 
         shft = 0
@@ -57,7 +55,7 @@ class SpecialMath(object):
                 else:
                     t_shift = shft + float(i)/float(len(data_list)**itteration)
                 u_shift = t_shift + float(1)/float(len(data_list)**itteration)
-                print(t_shift,u_shift)
+
                 t_wave = self.gen_sin(len(data_list),t_shift,Amp)
                 u_wave = self.gen_sin(len(data_list),u_shift,Amp)
                 t_sse = self.SSE(data_list, t_wave)
@@ -66,12 +64,11 @@ class SpecialMath(object):
                     small_sse = self.mean([t_sse,u_sse])
                     temp_shft = t_shift
             shft = temp_shft
-            print('SHIFT: %f'%shft)
 
         for itteration in range(1,itt):
             for step in range(0,9):
                 amp_step_l = Amp_low + float(step)*((Amp_high - Amp_low)*2/(10.0))
-                print('amp_step_l: %f' % amp_step_l)
+
                 amp_step_h = amp_step_l + ((Amp_high - Amp_low)*2/(10.0))
 
                 l_wave = self.gen_sin(len(data_list),shft,amp_step_l)
@@ -88,16 +85,16 @@ class SpecialMath(object):
 
             Amp_low  = ALT
             Amp_high = AHT
-            print(itteration,Amp_low,Amp_high)
             Amp = self.mean([Amp_low,Amp_high])
-            print('AMP %f' % Amp)
+
 
 
 
         return((Amp,shft))
 
 
-
+'''
+#example
 sm = SpecialMath()
 (a,s) = sm.fit_sin(sm.example_data,5)
 print(round(a,4),round(s,4))
@@ -106,3 +103,4 @@ wavedat = sm.gen_sin(20,s,a)
 
 for h in wavedat:
     print(h)
+'''
