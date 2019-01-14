@@ -4,11 +4,11 @@ import math
 
 
 class SpecialMath(object):
-    example_data = [7013, 4020, 3648, 5009, 8975, 14013, 20992, 28005, 35020, 41425, 46042, 49082, 49977, 48239, 44645, 38966, 32582, 25132, 18021, 11989]
+    example_data = [7013, 4020, 3648, 5009, 8975, 14013, 20992, 28005, 35020, 41425, 46042, 49082, \
+    49977, 48239, 44645, 38966, 32582, 25132, 18021, 11989]
 
-    example_data2 = [30206, 37110, 43028, 47243, 49986, 49995, 47950, 43435, 37826, \
-     30909, 23363, 16531, 10771, 6034, 3997, 3995, 6000, 10003, 16299, 23232]
-
+    example_data2 =  [718.5, 1135.5, 1019.5, 938.5, 782.5, 612.5, 509.5, 148.5, -150.5, -386.5, \
+    -528.5, -616.5, -753.5, -853.5, -980.4999, -820.5, -597.5, -361.5, -115.5, 299.5]
 
     def __init__(self):
         print("Message: 'Use special math!'")
@@ -17,7 +17,7 @@ class SpecialMath(object):
     def mean(self,numb):
         return float(sum(numb)) / max(len(numb), 1)
 
-    def gen_sin(self,length,shift, amp):
+    def gen_sin(self,length,amp,shift):
         time = []
         for x in range(length):
             time.append(x/float(length))
@@ -55,9 +55,9 @@ class SpecialMath(object):
                 else:
                     t_shift = shft + float(i)/float(len(data_list)**itteration)
                 u_shift = t_shift + float(1)/float(len(data_list)**itteration)
-
-                t_wave = self.gen_sin(len(data_list),t_shift,Amp)
-                u_wave = self.gen_sin(len(data_list),u_shift,Amp)
+                print(t_shift,u_shift)
+                t_wave = self.gen_sin(len(data_list), Amp, t_shift)
+                u_wave = self.gen_sin(len(data_list), Amp, u_shift)
                 t_sse = self.SSE(data_list, t_wave)
                 u_sse = self.SSE(data_list, u_wave)
                 if self.mean([t_sse,u_sse]) < small_sse:
@@ -71,8 +71,8 @@ class SpecialMath(object):
 
                 amp_step_h = amp_step_l + ((Amp_high - Amp_low)*2/(10.0))
 
-                l_wave = self.gen_sin(len(data_list),shft,amp_step_l)
-                h_wave = self.gen_sin(len(data_list),shft,amp_step_h)
+                l_wave = self.gen_sin(len(data_list),amp_step_l, shft)
+                h_wave = self.gen_sin(len(data_list),amp_step_h, shft)
                 l_sse = self.SSE(data_list, l_wave)
                 h_sse = self.SSE(data_list, h_wave)
 
@@ -93,14 +93,13 @@ class SpecialMath(object):
         return((Amp,shft))
 
 
-'''
+
 #example
 sm = SpecialMath()
-(a,s) = sm.fit_sin(sm.example_data,5)
+(a,s) = sm.fit_sin(sm.example_data,8)
 print(round(a,4),round(s,4))
 
-wavedat = sm.gen_sin(20,s,a)
+wavedat = sm.gen_sin(20,a,s)
 
 for h in wavedat:
     print(h)
-'''
