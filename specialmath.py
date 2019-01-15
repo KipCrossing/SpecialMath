@@ -28,7 +28,7 @@ class SpecialMath(object):
 
     def SSE(self,observe,predict):
         summ = 0
-        for i in range(0,len(observe)-1):
+        for i in range(0,len(observe)):
             summ += (observe[i]-predict[i])**2
         return(summ)
 
@@ -55,7 +55,6 @@ class SpecialMath(object):
                 else:
                     t_shift = shft + float(i)/float(len(data_list)**itteration)
                 u_shift = t_shift + float(1)/float(len(data_list)**itteration)
-                print(t_shift,u_shift)
                 t_wave = self.gen_sin(len(data_list), Amp, t_shift)
                 u_wave = self.gen_sin(len(data_list), Amp, u_shift)
                 t_sse = self.SSE(data_list, t_wave)
@@ -91,15 +90,3 @@ class SpecialMath(object):
 
 
         return((Amp,shft))
-
-
-
-#example
-sm = SpecialMath()
-(a,s) = sm.fit_sin(sm.example_data,8)
-print(round(a,4),round(s,4))
-
-wavedat = sm.gen_sin(20,a,s)
-
-for h in wavedat:
-    print(h)
