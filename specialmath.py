@@ -32,6 +32,11 @@ class SpecialMath(object):
             summ += (observe[i]-predict[i])**2
         return(summ)
 
+    def SD(self,observe,predict):
+        sse = self.SSE(observe,predict)
+        ans = math.sqrt((1/float(len(observe)))*sse)
+        return(ans)
+
     def fit_sin(self,data_list,itt):
         data_mean = self.mean(data_list)
         for d in range(0,len(data_list)):
