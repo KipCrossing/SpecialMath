@@ -69,7 +69,7 @@ returns (3.9999744, 0.99993896484375)
 
 ## To Do
 
-Add a methof to calculate the Standard Deviation
+Add a method to calculate the Standard Deviation
 
 ## Acknowledgements
 Written By Kipling Crossing
